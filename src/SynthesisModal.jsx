@@ -1,0 +1,5 @@
+import React from "react";
+import { createPortal } from "react-dom";
+import { motion } from "framer-motion";
+import { Check, X } from "lucide-react";
+export default function SynthesisModal({ title, onClose, onReviewed, children }) { return createPortal(<motion.div className="modal-backdrop focused-modal-backdrop" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={onClose}><motion.section className="detail-sheet detail-modal synthesis-modal" initial={{opacity:0,y:28,scale:.96}} animate={{opacity:1,y:0,scale:1}} exit={{opacity:0,y:18,scale:.97}} onClick={e=>e.stopPropagation()} role="dialog" aria-modal="true"><button className="drawer-close" onClick={onClose} aria-label="Close synthesis"><X/></button><p className="mini-label">SYNTHESIS · EXAM LENS</p><h3>{title}</h3><div className="synthesis-modal-content">{children}</div><button className="modal-close-bottom" onClick={onReviewed}><Check/> Mark synthesis reviewed</button></motion.section></motion.div>,document.body); }

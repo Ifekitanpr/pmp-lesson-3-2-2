@@ -22,6 +22,7 @@ import {
   X,
 } from "lucide-react";
 import "./styles.css";
+import SynthesisModal from "./SynthesisModal";
 import visionDriftImg from "./assets/illustrations/vision-drift-portrait.png";
 import hiddenRiskImg from "./assets/illustrations/hidden-risk.png";
 import compassRealignmentImg from "./assets/illustrations/compass-realignment.png";
@@ -290,6 +291,7 @@ function App() {
     [flips, setFlips] = useState([]),
     [q2, setQ2] = useState(false),
     [done, setDone] = useState(false),
+    [synthesisOpen, setSynthesisOpen] = useState(false),
     [menu, setMenu] = useState(false),
     [quizOpen, setQuizOpen] = useState(false),
     [detail, setDetail] = useState(null);
@@ -660,39 +662,9 @@ function App() {
                     <div className="final-copy">
                       <p className="eyebrow">SCREEN 5 · SYNTHESIS (EXAM LENS)</p>
                       <h2>Strip away every trigger and every scenario, and one idea sits underneath this whole enabler — one worth carrying into the exam room, and into every project you'll ever steer.</h2>
-                      {!done ? (
-                        <button
-                          className="primary"
-                          onClick={() => {
-                            setDone(true);
-                            tone(true, sound);
-                          }}
-                        >
-                          Reveal the synthesis <Sparkles size={18} />
-                        </button>
-                      ) : (
-                        <motion.div
-                          initial={{ opacity: 0, y: 14 }}
-                          animate={{ opacity: 1, y: 0 }}
-                        >
-                          <p className="exam-synthesis">A vision is not a document you create at initiation and protect from change. It's a living alignment tool — and its value depends on it remaining accurate. The team with no vision knows it needs direction. The team navigating by a stale vision believes it already has it — and that distinction is exactly what this enabler is designed to prevent. Expect the exam to test this through scenarios where a vision existed on paper but had quietly stopped being true.</p>
-                          <h3>Exam-relevant enablers to remember:</h3>
-                          <ul>
-                            <li>
-                              Test the vision at phase boundaries — continuing, re-scoping, and stopping are all legitimate outcomes
-                            </li>
-                            <li>
-                              Revisit it after any major change significant enough to affect what the project is trying to achieve
-                            </li>
-                            <li>
-                              Reintroduce it to new key stakeholders — never assume their mental model matches the room that created it
-                            </li>
-                            <li>
-                              When the test shows reality has moved, update the vision before the team steers further off course
-                            </li>
-                          </ul>
-                        </motion.div>
-                      )}
+                      <button className="primary" disabled={done} onClick={() => setSynthesisOpen(true)}>
+                        {done ? "Synthesis reviewed" : "Reveal the synthesis"} <Sparkles size={18} />
+                      </button>
                     </div>
                   </div>
                 )}
@@ -747,6 +719,11 @@ function App() {
             onRead={markDetailRead}
           />
         )}
+        {synthesisOpen && <SynthesisModal title="A vision is a living alignment tool" onClose={() => setSynthesisOpen(false)} onReviewed={() => { setDone(true); setSynthesisOpen(false); tone(true, sound); }}>
+          <p>A vision is not a document you create at initiation and protect from change. It's a living alignment tool — and its value depends on it remaining accurate. The team with no vision knows it needs direction. The team navigating by a stale vision believes it already has it — and that distinction is exactly what this enabler is designed to prevent. Expect the exam to test this through scenarios where a vision existed on paper but had quietly stopped being true.</p>
+          <h4>Exam-relevant enablers to remember:</h4>
+          <ul><li>Test the vision at phase boundaries — continuing, re-scoping, and stopping are all legitimate outcomes</li><li>Revisit it after any major change significant enough to affect what the project is trying to achieve</li><li>Reintroduce it to new key stakeholders — never assume their mental model matches the room that created it</li><li>When the test shows reality has moved, update the vision before the team steers further off course</li></ul>
+        </SynthesisModal>}
       </AnimatePresence>
     </div>
   );
