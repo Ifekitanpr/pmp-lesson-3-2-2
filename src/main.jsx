@@ -45,51 +45,48 @@ const triggers = [
   {
     name: "Phase boundaries",
     icon: Flag,
-    kicker: "THE NATURAL CHECKPOINT",
-    text: "At the end of each phase or major milestone, test whether the destination still reflects what the organization needs. Continuing, re-scoping, and stopping are all legitimate governance outcomes.",
-    prompt: "Does this destination still deserve the next investment?",
+    kicker: "Phase Boundaries — the natural checkpoint",
+    text: "At the end of each phase or major milestone, the PM has both the opportunity and the responsibility to ask whether the destination the team has been navigating toward still reflects what the organization needs. Phase boundaries exist partly for this purpose — they're the governance moments where continuing, re-scoping, or stopping are all legitimate options on the table.",
     image: phaseBoundaryImg,
   },
   {
     name: "Major changes",
     icon: GitCompareArrows,
-    kicker: "WHEN REALITY MOVES",
-    text: "A regulatory requirement, market shift, or material scope change can alter what the project is trying to achieve. If a change affects the destination, it is big enough to reopen the vision conversation.",
-    prompt: "Did this change alter what success needs to mean?",
+    kicker: "Major Changes",
+    text: "A new regulatory requirement that reshapes the product. A market shift that changes the competitive landscape. A scope change significant enough to alter what the project delivers. The question is never whether the change was expected — it's whether it has changed the destination. Any shift big enough to affect what the project is trying to achieve is big enough to reopen the vision conversation.",
     image: majorChangesImg,
   },
   {
     name: "New stakeholders",
     icon: UserPlus,
-    kicker: "A NEW MENTAL MODEL",
-    text: "A new sponsor, regulator, or executive did not negotiate the original language. Their alignment cannot be assumed; an influential stakeholder navigating toward a different destination is conflict waiting to surface.",
-    prompt: "Are we all steering toward the same outcome?",
+    kicker: "New Key Stakeholders",
+    text: "When a significant stakeholder joins mid-project — a new sponsor, a new regulatory body, an executive with a different strategic agenda — their understanding of the vision can't be assumed. They weren't in the workshop; they didn't negotiate the language of the vision statement. Bringing them into alignment isn't a courtesy — it's a governance necessity. An influential stakeholder working from a different mental model of the destination is a misalignment waiting to surface as conflict.",
     image: newStakeholdersImg,
   },
 ];
 const quiz1 = {
-  q: "A new executive sponsor joins in month 5, replacing someone who co-created the original vision. What should the PM do?",
+  q: "A new executive sponsor joins the project in month 5, replacing someone who helped co-create the original vision statement. What should the PM do?",
   answers: [
-    "Nothing — the vision is already approved",
-    "Wait until the next phase boundary",
-    "Proactively revisit the vision with them",
-    "Only revisit if the sponsor raises concerns",
+    "Nothing — the vision is already documented and approved",
+    "Wait until the next phase boundary to bring them up to speed",
+    "Proactively revisit the vision with them — new key stakeholders can't be assumed to share the existing mental model",
+    "Only revisit if the new sponsor raises concerns",
   ],
   correct: 2,
-  yes: "Right — the new sponsor wasn’t in the room when the vision was negotiated, so alignment cannot be assumed.",
-  no: "Reconsider: this stakeholder’s understanding cannot be assumed simply because the document exists.",
+  yes: "Right — the new sponsor wasn't in the room when the vision was negotiated, so their alignment can't be assumed. Waiting for a phase boundary or for them to raise it leaves the misalignment live in the meantime.",
+  no: "Reconsider — this stakeholder's understanding of the vision genuinely can't be assumed just because the document exists.",
 };
 const quiz2 = {
-  q: "Which is generally more dangerous: having no documented vision, or navigating by a stale one?",
+  q: "Which is generally more dangerous to a project — having no documented vision, or navigating by a stale one?",
   answers: [
-    "No vision — something is always better than nothing",
-    "A stale vision — it creates false confidence",
-    "They are equally risky",
-    "Neither affects project decisions",
+    "No vision — teams need something to aim for, even if imperfect",
+    "A stale vision — it creates false confidence that suppresses the checking-in a missing vision would have prompted",
+    "They're equally risky — both leave a team without real direction",
+    "Neither — vision has no real bearing on project decisions",
   ],
   correct: 1,
-  yes: "Exactly — false confidence suppresses the check-ins that would have caught the drift.",
-  no: "Think about behavior: one team keeps checking; the other confidently stops. That difference creates the risk.",
+  yes: "Exactly — the danger isn't the absence of a vision, it's the false confidence a stale one produces, which quietly suppresses the very check-ins that would have caught the drift.",
+  no: "Think about what each team actually does differently — one keeps checking, one stops. That difference is where the real risk sits.",
 };
 
 function tone(success, enabled) {
@@ -155,10 +152,10 @@ function Quiz({ data, onDone, sound, onFinish }) {
         >
           {picked === data.correct
             ? data.yes
-            : `${data.no} Choose another answer to try again.`}
+            : data.no}
         </motion.p>
       )}
-      {picked === data.correct && (
+      {picked !== null && (
         <button className="finish-check" onClick={() => { setClosed(true); onFinish?.(); }}>
           Finish check <ArrowRight size={18} />
         </button>
@@ -462,28 +459,19 @@ function App() {
                 {page === 0 && (
                   <>
                     <div className="copy">
-                      <p className="eyebrow">LESSON 3.2.2 · KEEP THE VISION CURRENT</p>
-                      <h1>
-                        A clear destination
-                        <br />
-                        can still become <em>wrong.</em>
-                      </h1>
-                      <p>
-                        A GPS plots the best route for the moment you enter the
-                        address. It cannot know a bridge will close later—or
-                        that a better road will open.
-                      </p>
+                      <p className="eyebrow">LESSON 3.2.2</p>
+                      <h1>Keep the Vision Current</h1>
+                      <p>Set a destination into a GPS at the start of a long drive, and it plots the best possible route — in that moment. It doesn't know a bridge will close an hour later, or that a new road will open next month. It just keeps confidently routing you down streets that made sense when you typed the address in, not necessarily the ones that make sense now.</p>
                       <button
                         className="primary"
                         onClick={() => {
                           setReveal(true);
                           setDetail({
-                            title: "A stale vision is not neutral",
-                            kicker: "THE HIDDEN RISK",
+                            title: "A project vision works the same way",
+                            kicker: "CLICK-TO-REVEAL",
                             icon: Compass,
                             image: hiddenRiskImg,
-                            body: "A vision can be perfectly crafted at initiation and still become wrong when the world changes around it. Unlike having no vision, a stale vision creates false confidence: the team keeps making aligned, purposeful decisions—but toward a destination that no longer reflects what the project needs to achieve. That makes an outdated vision actively dangerous, not merely incomplete.",
-                            prompt: "Is the destination still true—or are we only following an old map?",
+                            body: "A project vision works the same way. A vision that was perfectly crafted at initiation can quietly become wrong — not because anyone made a mistake, but because the world around the project changed and the vision didn't change with it. A stale vision isn't neutral; it's actively dangerous, because the team keeps steering purposefully toward a destination that no longer reflects what the project is actually trying to achieve. Nobody notices until the gap between the vision and reality is too wide to ignore. That's the exact problem this enabler exists to solve.",
                           });
                           tone(false, sound);
                         }}
@@ -500,23 +488,18 @@ function App() {
                 {page === 1 && (
                   <div className="wide two-step">
                     <div>
-                      <p className="eyebrow">WHAT THE ENABLER ACTUALLY ASKS</p>
-                      <h2>
-                        Keeping the vision current is a <em>governance act.</em>
-                      </h2>
-                      <p className="lede">
-                        Reveal each part to bring the compass back into
-                        alignment.
-                      </p>
+                      <p className="eyebrow">SCREEN 2</p>
+                      <h2>What the Enabler Actually Asks For</h2>
+                      <p className="lede">"Keep the vision current" sounds simple, almost like housekeeping. It isn't. It's a deliberate governance act tied directly to one of PMBOK® 8's core principles.</p>
                       <div className="reveal-steps">
                         <button
                           className={steps >= 1 ? "opened" : ""}
                           onClick={() => {
                             setDetail({
-                              title: "Test the destination against value",
-                              kicker: "FOCUS ON VALUE",
+                              title: "The third enabler of ECO People Task 1",
+                              kicker: "PART 1",
                               icon: Target,
-                              body: "ECO People Task 1 asks the PM to revisit and refresh the vision so it continues to describe a destination worth pursuing. If it no longer points toward value, update it—or question whether the project should continue.",
+                              body: "The third enabler of ECO People Task 1 asks the project manager to revisit the vision deliberately, and where needed, refresh it so it continues to describe a destination worth pursuing. This connects directly to PMBOK® 8's Focus on Value principle: if conditions change such that the vision no longer points toward real value, the value-focused response is to update it. In the most significant cases — where changed conditions make the original destination unachievable or no longer worth pursuing — the value-focused response may even be to question whether the project should continue at all.",
                               image: focusValueImg,
                             });
                           }}
@@ -529,11 +512,7 @@ function App() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                               >
-                                ECO People Task 1 asks the PM to revisit and
-                                refresh the vision so it continues to describe a
-                                destination worth pursuing. If it no longer
-                                points toward value, update it—or question
-                                whether the project should continue.
+                                The third enabler of ECO People Task 1 asks the project manager to revisit the vision deliberately, and where needed, refresh it so it continues to describe a destination worth pursuing. This connects directly to PMBOK® 8's Focus on Value principle: if conditions change such that the vision no longer points toward real value, the value-focused response is to update it. In the most significant cases — where changed conditions make the original destination unachievable or no longer worth pursuing — the value-focused response may even be to question whether the project should continue at all.
                               </motion.p>
                             )}
                           </div>
@@ -543,10 +522,10 @@ function App() {
                           className={steps >= 2 ? "opened" : steps === 1 ? "available" : ""}
                           onClick={() => {
                             setDetail({
-                              title: "Build in deliberate moments to realign",
-                              kicker: "ACTIVE GOVERNANCE",
+                              title: "This is not reactive housekeeping",
+                              kicker: "PART 2",
                               icon: RefreshCw,
-                              body: "This is not reactive housekeeping or a document-control exercise. Build deliberate checkpoints into the work, test the vision against present reality, and realign the group whenever assumptions, value, or the operating environment have moved on without it. The outcome may be to continue, revise, re-scope, or stop.",
+                              body: "This is not reactive housekeeping. It means deliberately building in moments to test the vision against reality — and re-aligning the group whenever that test reveals reality has moved on without it.",
                               image: realignmentImg,
                             });
                           }}
@@ -559,10 +538,7 @@ function App() {
                                 initial={{ opacity: 0 }}
                                 animate={{ opacity: 1 }}
                               >
-                                This is not reactive housekeeping. Test the
-                                vision against reality on purpose, then realign
-                                the group whenever reality has moved on without
-                                it.
+                                This is not reactive housekeeping. It means deliberately building in moments to test the vision against reality — and re-aligning the group whenever that test reveals reality has moved on without it.
                               </motion.p>
                             )}
                           </div>
@@ -574,12 +550,9 @@ function App() {
                 )}
                 {page === 2 && (
                   <div className="wide">
-                    <p className="eyebrow">THREE MOMENTS TO REVISIT</p>
-                    <h2>Don’t wait for something to break.</h2>
-                    <p className="lede">
-                      Open every checkpoint and test the vision against current
-                      reality.
-                    </p>
+                    <p className="eyebrow">SCREEN 3</p>
+                    <h2>Three Moments to Revisit the Vision</h2>
+                    <p className="lede">Three moments, consistently, are where the vision needs to be pulled out and tested against current reality — not waited on until something breaks. Click each to see why it matters.</p>
                     <div className="direct-card-grid" aria-label="Vision revisit checkpoints">
                         {triggers.map((trigger, index) => {
                           const Icon = trigger.icon;
@@ -616,11 +589,9 @@ function App() {
                 )}
                 {page === 3 && (
                   <div className="wide">
-                    <p className="eyebrow">THE COUNTERINTUITIVE RISK</p>
-                    <h2>Why a stale vision can be worse than none.</h2>
-                    <p className="lede">
-                      Flip both cards to compare how each team behaves.
-                    </p>
+                    <p className="eyebrow">SCREEN 4</p>
+                    <h2>Why a Stale Vision Is Worse Than None</h2>
+                    <p className="lede">Here's the counterintuitive part of this enabler — and the part the exam loves to test. It would seem safer to have some vision than none. But there's a version of "having a vision" that's actually worse than having nothing at all. Flip both cards to see the difference.</p>
                     <div className="flip-grid">
                       {[
                         {
@@ -628,14 +599,14 @@ function App() {
                           sub: "Knows it lacks direction",
                           icon: Compass,
                           image: noVisionCard,
-                          body: "The gap is visible, so the team checks more frequently, escalates uncertainty, and seeks alignment before significant decisions. The caution is uncomfortable—but protective.",
+                          body: "Knows it lacks direction. Because the gap is visible, it tends to check back more frequently, escalate uncertainty, and seek alignment before committing to significant decisions. The caution is uncomfortable, but it's protective.",
                         },
                         {
                           title: "A team with a stale vision",
                           sub: "Believes it has direction",
                           icon: RefreshCw,
                           image: staleVisionCard,
-                          body: "The team decides confidently, accelerates, and uses an outdated vision to justify choices that pull the project further from where it needs to go. Nothing prompts a second look.",
+                          body: "Believes it has direction. It makes decisions confidently, accelerates toward the destination, and uses the outdated vision to justify choices that may be pulling the project further from where it actually needs to go — with nothing prompting a second look.",
                         },
                       ].map((c, i) => {
                         const I = c.icon,
@@ -672,12 +643,7 @@ function App() {
                     </div>
                     {flips.length === 2 && (
                       <>
-                        <div className="backing">
-                          <b>Focus on Value:</b> value is the point—not
-                          protecting the vision document from change.
-                          Misalignment accumulates quietly until it becomes
-                          visible and expensive.
-                        </div>
+                        <div className="backing">The misalignment in the second scenario doesn't surface in any single decision — it accumulates quietly, over months, until the distance between where the project is headed and where it should be headed becomes visible and expensive to correct. PMBOK® 8's Focus on Value principle is the governing idea: value is the point, not the vision document itself. Defending an outdated vision because changing it feels disruptive is the project management equivalent of navigating by an old map and refusing to look out the window.</div>
                         {!q2 && <button className="knowledge-check-cta" onClick={() => setQuizOpen(true)}>
                           <Target size={18} /> Start knowledge check <ArrowRight size={18} />
                         </button>}
@@ -690,12 +656,8 @@ function App() {
                   <div className="final vision-final">
                     <VisionFrame current={done} />
                     <div className="final-copy">
-                      <p className="eyebrow">EXAM LENS · KEEP IT TRUE</p>
-                      <h2>
-                        A vision is a <em>living alignment tool.</em> Its value
-                        depends on remaining accurate.
-                      </h2>
-                      <p className="lede">The vision is useful only while it describes a destination worth pursuing and keeps decision-makers aligned around that destination.</p>
+                      <p className="eyebrow">SCREEN 5 · SYNTHESIS (EXAM LENS)</p>
+                      <h2>Strip away every trigger and every scenario, and one idea sits underneath this whole enabler — one worth carrying into the exam room, and into every project you'll ever steer.</h2>
                       {!done ? (
                         <button
                           className="primary"
@@ -704,28 +666,27 @@ function App() {
                             tone(true, sound);
                           }}
                         >
-                          Refresh the vision <Sparkles size={18} />
+                          Reveal the synthesis <Sparkles size={18} />
                         </button>
                       ) : (
                         <motion.div
                           initial={{ opacity: 0, y: 14 }}
                           animate={{ opacity: 1, y: 0 }}
                         >
+                          <p className="exam-synthesis">A vision is not a document you create at initiation and protect from change. It's a living alignment tool — and its value depends on it remaining accurate. The team with no vision knows it needs direction. The team navigating by a stale vision believes it already has it — and that distinction is exactly what this enabler is designed to prevent. Expect the exam to test this through scenarios where a vision existed on paper but had quietly stopped being true.</p>
+                          <h3>Exam-relevant enablers to remember:</h3>
                           <ul>
                             <li>
-                              Test it at phase boundaries; continue, re-scope,
-                              or stop.
+                              Test the vision at phase boundaries — continuing, re-scoping, and stopping are all legitimate outcomes
                             </li>
                             <li>
-                              Revisit after any change that affects the
-                              destination.
+                              Revisit it after any major change significant enough to affect what the project is trying to achieve
                             </li>
                             <li>
-                              Reintroduce it to every new key stakeholder.
+                              Reintroduce it to new key stakeholders — never assume their mental model matches the room that created it
                             </li>
                             <li>
-                              When reality moves, update the vision before the
-                              team drifts further.
+                              When the test shows reality has moved, update the vision before the team steers further off course
                             </li>
                           </ul>
                         </motion.div>

@@ -58,3 +58,19 @@ button:focus-visible,input:focus-visible{outline:3px solid #007bff;outline-offse
 .illustrated-flip .flip-front h3,.illustrated-flip .flip-back h3{margin:6px 0 10px}
 .illustrated-flip .flip-back p{margin:0;line-height:1.48}
 @media(max-width:800px){.illustrated-flip>.flip-card-art{height:150px}.illustrated-flip>.flip{height:330px}}
+
+/* Canonical storyboard copy determines layout and component height */
+.custom-stage.page-0 .copy h1{font-size:clamp(42px,4.8vw,68px);line-height:1.02}
+.custom-stage.page-0 .copy>p:not(.eyebrow){max-width:720px}
+.two-step{align-items:start}
+.reveal-steps button{height:auto;min-height:128px}
+.reveal-steps button p{line-height:1.55}
+.page-3 .illustrated-flip>.flip{height:410px}
+.page-3 .flip-back{justify-content:flex-start;overflow-y:auto}
+.page-3 .flip-back p{font-size:14px;line-height:1.55}
+.detail-modal{overflow-y:auto}
+.vision-final{align-items:start}
+.vision-final .final-copy h2{font-size:clamp(28px,3.2vw,44px)}
+.exam-synthesis{margin:18px 0;color:#475569;line-height:1.6}
+.vision-final h3{margin:20px 0 8px;font-size:17px}
+@media(max-width:800px){.page-3 .illustrated-flip>.flip{height:500px}}
