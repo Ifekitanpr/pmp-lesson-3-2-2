@@ -327,12 +327,12 @@ function App() {
     tone(false, sound);
   };
   const markDetailRead = () => {
-    if (page === 1 && detail?.title === "Test the destination against value") {
+    if (page === 1 && detail?.step === 1) {
       setSteps(1);
       setDetail(null);
       return;
     }
-    if (page === 1 && detail?.title === "Build in deliberate moments to realign") {
+    if (page === 1 && detail?.step === 2) {
       setSteps(2);
       setDetail(null);
       return;
@@ -496,6 +496,7 @@ function App() {
                           className={steps >= 1 ? "opened" : ""}
                           onClick={() => {
                             setDetail({
+                              step: 1,
                               title: "The third enabler of ECO People Task 1",
                               kicker: "PART 1",
                               icon: Target,
@@ -522,6 +523,7 @@ function App() {
                           className={steps >= 2 ? "opened" : steps === 1 ? "available" : ""}
                           onClick={() => {
                             setDetail({
+                              step: 2,
                               title: "This is not reactive housekeeping",
                               kicker: "PART 2",
                               icon: RefreshCw,
