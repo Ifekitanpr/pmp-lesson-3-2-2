@@ -75,14 +75,13 @@ button:focus-visible,input:focus-visible{outline:3px solid #007bff;outline-offse
 .vision-final h3{margin:20px 0 8px;font-size:17px}
 @media(max-width:800px){.page-3 .illustrated-flip>.flip{height:300px}}
 
-/* Flip cards size to their supplied content instead of fixed empty space */
-.flip-grid{align-items:stretch}
-.illustrated-flip{height:100%}
-.flip:has(.flip-inner){height:auto!important;min-height:220px;align-self:stretch}
-.illustrated-flip>.flip:has(.flip-inner){flex:1}
-.flip:has(.flip-inner) .flip-inner{display:grid;height:auto!important;min-height:220px}
-.flip:has(.flip-inner) .flip-front,.flip:has(.flip-inner) .flip-back{position:relative!important;inset:auto!important;grid-area:1/1;min-height:220px;height:auto}
-@media(max-width:800px){.flip:has(.flip-inner),.flip:has(.flip-inner) .flip-inner,.flip:has(.flip-inner) .flip-front,.flip:has(.flip-inner) .flip-back{min-height:200px}}
+/* Each flip card sizes to its own complete supplied content */
+.flip-grid{align-items:start}
+.illustrated-flip{height:auto;align-self:start}
+.flip:has(.flip-inner){height:auto!important;min-height:0!important;align-self:start}
+.illustrated-flip>.flip:has(.flip-inner){flex:none}
+.flip:has(.flip-inner) .flip-inner{display:grid;height:auto!important;min-height:0!important}
+.flip:has(.flip-inner) .flip-front,.flip:has(.flip-inner) .flip-back{position:relative!important;inset:auto!important;grid-area:1/1;min-height:0!important;height:auto!important}
 /* Stable synthesis review modal */
 .synthesis-modal{overflow-y:auto}
 .synthesis-modal-content{color:#475569;line-height:1.6}
