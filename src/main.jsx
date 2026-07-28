@@ -23,17 +23,18 @@ import {
 } from "lucide-react";
 import "./styles.css";
 import SynthesisModal from "./SynthesisModal";
-import visionDriftImg from "./assets/illustrations/vision-drift-portrait.png";
-import hiddenRiskImg from "./assets/illustrations/hidden-risk.png";
-import compassRealignmentImg from "./assets/illustrations/compass-realignment.png";
-import staleComparisonImg from "./assets/illustrations/stale-vs-no-vision.png";
-import focusValueImg from "./assets/illustrations/focus-on-value.png";
-import realignmentImg from "./assets/illustrations/deliberate-realignment.png";
-import phaseBoundaryImg from "./assets/illustrations/phase-boundaries.png";
-import majorChangesImg from "./assets/illustrations/major-changes.png";
-import newStakeholdersImg from "./assets/illustrations/new-stakeholders.png";
-import noVisionCard from "./assets/illustrations/no-vision-card.png";
-import staleVisionCard from "./assets/illustrations/stale-vision-card.png";
+import { IllustrationPlayer } from "./components/IllustrationPlayer";
+import visionDriftImg from "./assets/illustrations/vision-drift-portrait.svg?raw";
+import hiddenRiskImg from "./assets/illustrations/hidden-risk.svg?raw";
+import compassRealignmentImg from "./assets/illustrations/compass-realignment.svg?raw";
+import staleComparisonImg from "./assets/illustrations/stale-vs-no-vision.svg?raw";
+import focusValueImg from "./assets/illustrations/focus-on-value.svg?raw";
+import realignmentImg from "./assets/illustrations/deliberate-realignment.svg?raw";
+import phaseBoundaryImg from "./assets/illustrations/phase-boundaries.svg?raw";
+import majorChangesImg from "./assets/illustrations/major-changes.svg?raw";
+import newStakeholdersImg from "./assets/illustrations/new-stakeholders.svg?raw";
+import noVisionCard from "./assets/illustrations/no-vision-card.svg?raw";
+import staleVisionCard from "./assets/illustrations/stale-vision-card.svg?raw";
 
 const screens = [
   "The drift",
@@ -199,7 +200,7 @@ function DetailSheet({ detail, onClose, onRead, modal = false }) {
         >
           <X size={22} />
         </button>
-        {detail.image ? <img className="drawer-illustration" src={detail.image} alt="" /> : <div className="sheet-icon">{detail.icon && React.createElement(detail.icon)}</div>}
+        {detail.image ? <IllustrationPlayer className="drawer-illustration" svg={detail.image} /> : <div className="sheet-icon">{detail.icon && React.createElement(detail.icon)}</div>}
         <p className="mini-label">{detail.kicker}</p>
         <h3>{detail.name || detail.title}</h3>
         <p>{detail.text || detail.body}</p>
@@ -470,7 +471,6 @@ function App() {
                           setReveal(true);
                           setDetail({
                             title: "A project vision works the same way",
-                            kicker: "CLICK-TO-REVEAL",
                             icon: Compass,
                             image: hiddenRiskImg,
                             body: "A project vision works the same way. A vision that was perfectly crafted at initiation can quietly become wrong — not because anyone made a mistake, but because the world around the project changed and the vision didn't change with it. A stale vision isn't neutral; it's actively dangerous, because the team keeps steering purposefully toward a destination that no longer reflects what the project is actually trying to achieve. Nobody notices until the gap between the vision and reality is too wide to ignore. That's the exact problem this enabler exists to solve.",
@@ -484,13 +484,12 @@ function App() {
                         <ArrowRight size={18} />
                       </button>
                     </div>
-                    <img className="lesson-illustration hero-illustration portrait-art" src={visionDriftImg} alt="A project team reaches a blocked bridge where its old route is no longer valid and a new destination must be considered" />
+                    <IllustrationPlayer className="lesson-illustration hero-illustration portrait-art" svg={visionDriftImg} />
                   </>
                 )}
                 {page === 1 && (
                   <div className="wide two-step">
                     <div>
-                      <p className="eyebrow">SCREEN 2</p>
                       <h2>What the Enabler Actually Asks For</h2>
                       <p className="lede">"Keep the vision current" sounds simple, almost like housekeeping. It isn't. It's a deliberate governance act tied directly to one of PMBOK® 8's core principles.</p>
                       <div className="reveal-steps">
@@ -549,12 +548,11 @@ function App() {
                         </button>
                       </div>
                     </div>
-                    <div className={`generated-compass ${steps === 2 ? "aligned" : ""}`}><img className="lesson-illustration compass-art" src={compassRealignmentImg} alt="A compass needle realigning toward a destination" /></div>
+                    <div className={`generated-compass ${steps === 2 ? "aligned" : ""}`}><IllustrationPlayer className="lesson-illustration compass-art" svg={compassRealignmentImg} /></div>
                   </div>
                 )}
                 {page === 2 && (
                   <div className="wide">
-                    <p className="eyebrow">SCREEN 3</p>
                     <h2>Three Moments to Revisit the Vision</h2>
                     <p className="lede">Three moments, consistently, are where the vision needs to be pulled out and tested against current reality — not waited on until something breaks. Click each to see why it matters.</p>
                     <div className="direct-card-grid" aria-label="Vision revisit checkpoints">
@@ -593,7 +591,6 @@ function App() {
                 )}
                 {page === 3 && (
                   <div className="wide">
-                    <p className="eyebrow">SCREEN 4</p>
                     <h2>Why a Stale Vision Is Worse Than None</h2>
                     <p className="lede">Here's the counterintuitive part of this enabler — and the part the exam loves to test. It would seem safer to have some vision than none. But there's a version of "having a vision" that's actually worse than having nothing at all. Flip both cards to see the difference.</p>
                     <div className="flip-grid">
@@ -617,7 +614,7 @@ function App() {
                           on = flips.includes(i);
                         return (
                           <div className="illustrated-flip" key={c.title}>
-                          <img className="flip-card-art" src={c.image} alt="" />
+                          <IllustrationPlayer className="flip-card-art" svg={c.image} />
                           <button
                             className={`flip ${on ? "flipped" : ""}`}
                             onClick={() =>
@@ -660,7 +657,7 @@ function App() {
                   <div className="final vision-final">
                     <VisionFrame current={done} />
                     <div className="final-copy">
-                      <p className="eyebrow">SCREEN 5 · SYNTHESIS (EXAM LENS)</p>
+                      <p className="eyebrow">SYNTHESIS (EXAM LENS)</p>
                       <h2>Strip away every trigger and every scenario, and one idea sits underneath this whole enabler — one worth carrying into the exam room, and into every project you'll ever steer.</h2>
                       <button className="primary" disabled={done} onClick={() => setSynthesisOpen(true)}>
                         {done ? "Synthesis reviewed" : "Reveal the synthesis"} <Sparkles size={18} />
